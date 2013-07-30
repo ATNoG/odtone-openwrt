@@ -1,0 +1,26 @@
+diff --git a/app/sap_80211_linux/main.cpp b/app/sap_80211_linux/main.cpp
+index c84b146..21070ae 100644
+--- a/app/sap_80211_linux/main.cpp
++++ b/app/sap_80211_linux/main.cpp
+@@ -938,7 +938,7 @@ int main(int argc, char** argv)
+ 		(kConf_Link_Going_Down_hyst, po::value<int>()->default_value(5), "Link_Going_Down RSSI hysteresis")
+ 		(sap::kConf_Interface_Addr, po::value<std::string>()->default_value(""), "Interface address")
+ 		(sap::kConf_Port, po::value<odtone::ushort>()->default_value(1235), "Port")
+-		(sap::kConf_File, po::value<std::string>()->default_value("sap_80211.conf"), "Configuration File")
++		(sap::kConf_File, po::value<std::string>()->default_value("/etc/odtone/sap_80211.conf"), "Configuration File")
+ 		(sap::kConf_Receive_Buffer_Len, po::value<odtone::uint>()->default_value(4096), "Receive Buffer Length")
+ 		(sap::kConf_MIHF_Ip, po::value<std::string>()->default_value("127.0.0.1"), "Local MIHF Ip")
+ 		(sap::kConf_MIHF_Local_Port, po::value<odtone::ushort>()->default_value(1025), "MIHF Local Communications Port")
+diff --git a/src/mihf/main.cpp b/src/mihf/main.cpp
+index 3ff52aa..f65a3b6 100644
+--- a/src/mihf/main.cpp
++++ b/src/mihf/main.cpp
+@@ -595,7 +595,7 @@ int main(int argc, char **argv)
+ 
+ 	desc.add_options()
+ 		("help", "Display configuration options")
+-		(kConf_File, po::value<std::string>()->default_value("odtone.conf"), "Configuration file")
++		(kConf_File, po::value<std::string>()->default_value("/etc/odtone/odtone.conf"), "Configuration file")
+ 		(kConf_Receive_Buffer_Len, po::value<uint16>()->default_value(4096), "Receive buffer length")
+ 		(kConf_MIHF_Id, po::value<std::string>()->default_value("mihf"), "MIHF ID")
+ 		(kConf_MIHF_Ip, po::value<std::string>()->default_value("127.0.0.1"), "MIHF IP")

@@ -1,0 +1,21 @@
+diff --git a/lib/odtone/debug_linux.cpp b/lib/odtone/debug_linux.cpp
+index f9d2de0..62b24dd 100644
+--- a/lib/odtone/debug_linux.cpp
++++ b/lib/odtone/debug_linux.cpp
+@@ -23,7 +23,6 @@
+ #include <cstdio>
+ #include <cstring>
+ #include <limits.h>
+-#include <execinfo.h>
+ #include <signal.h>
+ #include <sys/mman.h>
+ #include <sys/stat.h>
+@@ -540,7 +539,7 @@ void dump_stack(module_list& ml, void* address)
+ 	int cnt, j, i = 0;
+ 	module* m;
+ 
+-	cnt = ::backtrace(trace, 128);
++	cnt = 128;
+ 	while (i < cnt && address) {
+ 		if (trace[i] == address)
+ 			break;

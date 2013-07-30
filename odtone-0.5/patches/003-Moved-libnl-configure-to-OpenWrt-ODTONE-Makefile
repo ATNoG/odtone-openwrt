@@ -1,0 +1,19 @@
+diff --git a/lib/external/libnl/Jamfile b/lib/external/libnl/Jamfile
+index 39d78b5..47585f5 100644
+--- a/lib/external/libnl/Jamfile
++++ b/lib/external/libnl/Jamfile
+@@ -17,13 +17,7 @@
+ 
+ actions run_make
+ {
+-	current_dir="`pwd`"
+-
+-	cd "$current_dir/$(>:D)"
+-	./configure || exit
+-
+-	cd "$current_dir"
+-	make -C $(>:D)/lib || exit
++	make -C $(>:D) || exit
+ 
+ 	ar rcs $(<) `find $(>:D)/lib -type f -name \*.o`
+ }
