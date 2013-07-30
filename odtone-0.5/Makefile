@@ -31,7 +31,7 @@ define Package/odtone
   SECTION:=net
   CATEGORY:=Network
   URL:=http://atnog.av.it.pt/odtone
-  DEPENDS:=+kmod-ipv6 +boost-thread +boost-system +boost-program_options
+  DEPENDS:=+kmod-ipv6 +boost-thread +boost-system +boost-program_options +libnl
   TITLE:=ODTONE Package
 endef
 
@@ -45,22 +45,6 @@ endef
 
 define Package/Prepare
 	$(call Build/Prepare/Default)
-endef
-
-define Build/Configure
-	+( cd $(PKG_BUILD_DIR)/lib/external/libnl/libnl ; \
-		AR=$(GNU_TARGET_NAME)-ar \
-		LD=$(GNU_TARGET_NAME)-ld \
-		NM=$(GNU_TARGET_NAME)-nm \
-		CC=$(GNU_TARGET_NAME)-gcc \
-		GCC=$(GNU_TARGET_NAME)-gcc \
-		CXX=$(GNU_TARGET_NAME)-g++ \
-		RANLIB=$(GNU_TARGET_NAME)-ranlib \
-		STRIP=$(GNU_TARGET_NAME)-strip \
-		OBJCOPY=$(GNU_TARGET_NAME)-objcopy \
-		OBJDUMP=$(GNU_TARGET_NAME)-objdump \
-		./configure --host=$(ARCH) \
-	)
 endef
 
 define Build/Compile
@@ -79,7 +63,7 @@ define Build/Compile
 			$(filter -j%,$(PKG_JOBS)) \
 			toolset=gcc-$(ARCH) --build-type=minimal --layout=system optimization=space \
 			--disable-long-double link=shared runtime-link=shared inlining=on debug-symbols=off \
-			$(CONFIGURE_ARGS) linkflags="-lpthread -lgcc_eh -lboost_program_options -lboost_system -lboost_thread -lnl-tiny" \
+			$(CONFIGURE_ARGS) linkflags="-lpthread -lgcc_eh -lboost_program_options -lboost_system -lboost_thread -lnl -lnl-genl -lnl-route" \
 			release \
 	)
 endef
@@ -87,6 +71,10 @@ endef
 define Package/odtone/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/etc/init.d/odtone $(1)/etc/init.d
+
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_BUILD_DIR)/bin.v2/lib/external/libnl/gcc-mipsel/release/inlining-on/optimization-space/libnlwrap.so $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/bin.v2/lib/odtone/gcc-mipsel/release/inlining-on/optimization-space/libodtone.so $(1)/usr/lib/
 
 	$(INSTALL_DIR) $(1)/sbin/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_80211 $(1)/sbin/
