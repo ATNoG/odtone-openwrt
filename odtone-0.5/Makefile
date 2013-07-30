@@ -78,8 +78,9 @@ define Build/Compile
 		b2 src/mihf app/sap_80211_linux \
 			$(filter -j%,$(PKG_JOBS)) \
 			toolset=gcc-$(ARCH) --build-type=minimal --layout=system optimization=space \
-			--disable-long-double link=static runtime-link=static inlining=on debug-symbols=off \
-			$(CONFIGURE_ARGS) --boost-root=../boost_1_51_0 linkflags="-lpthread -lgcc_eh" release \
+			--disable-long-double link=shared runtime-link=shared inlining=on debug-symbols=off \
+			$(CONFIGURE_ARGS) linkflags="-lpthread -lgcc_eh -lboost_program_options -lboost_system -lboost_thread -lnl-tiny" \
+			release \
 	)
 endef
 

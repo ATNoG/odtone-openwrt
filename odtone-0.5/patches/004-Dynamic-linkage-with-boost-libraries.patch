@@ -1,0 +1,84 @@
+diff --git a/Jamroot b/Jamroot
+index 801c312..596a410 100644
+--- a/Jamroot
++++ b/Jamroot
+@@ -40,28 +40,6 @@ project odtone
+ path-constant odtone-root : . ;
+ 
+ #
+-# Import the boost project
+-#
+-local boost-major = 1 ;
+-local boost-minor = 49 ;
+-local boost-patch = 0 ;
+-local boost-root ;
+-
+-boost-root ?= [ option.get boost-root ] ;
+-boost-root ?= [ os.environ BOOST_ROOT ] ;
+-
+-if ! $(boost-root) {
+-	boost-root = [ path.join $(odtone-root) ../boost_$(boost-major)_$(boost-minor)_$(boost-patch) ] ;
+-
+-	local version = $(boost-major).$(boost-minor).$(boost-patch) ;
+-
+-	ECHO "Warning: Assuming that Boost $(version) root is located at $(boost-root)" ;
+-	ECHO "Warning: You can set the location of the Boost $(version) libraries root in the command line"
+-	     "(--boost-root=/path/to/boost) or in the environment variable BOOST_ROOT" ;
+-}
+-use-project boost : $(boost-root) ;
+-
+-#
+ # General utilities
+ #
+ rule explicit-alias ( main-target-name :
+diff --git a/app/sap_80211_linux/Jamfile b/app/sap_80211_linux/Jamfile
+index 0966abc..926df44 100644
+--- a/app/sap_80211_linux/Jamfile
++++ b/app/sap_80211_linux/Jamfile
+@@ -22,8 +22,7 @@ exe sap_80211
+ 	  ../../lib/external/libnl//nlwrap
+ 	  ../../lib/external/libnl//libnl
+ 	  ../../lib/odtone//odtone
+-	  /boost//program_options
+-	: <link>static
++	: <link>shared
+ 	;
+ 
+ install install
+diff --git a/lib/external/libnl/Jamfile b/lib/external/libnl/Jamfile
+index 39d78b5..419b9ee 100644
+--- a/lib/external/libnl/Jamfile
++++ b/lib/external/libnl/Jamfile
+@@ -53,5 +53,5 @@ lib nlwrap
+ 	  ../../../lib/odtone//odtone
+ 	:
+ 	:
+-	: <include>nlwrap
++	: <include>nlwrap <link>static
+ 	;
+diff --git a/lib/odtone/Jamfile b/lib/odtone/Jamfile
+index e660037..880068a 100644
+--- a/lib/odtone/Jamfile
++++ b/lib/odtone/Jamfile
+@@ -51,9 +51,6 @@ lib odtone
+ 	  net/dns/resolver.cpp
+ 	  net/dns/message.cpp
+ 	  net/dns/utils.cpp
+-	  /boost//system
+-	  /boost//thread
+-	  /boost//program_options
+ 	  pthread
+ 	: <c++-template-depth>1024
+ 	  <define>BOOST_ENABLE_ASSERT_HANDLER
+diff --git a/src/mihf/Jamfile b/src/mihf/Jamfile
+index 71a2a77..38cca98 100644
+--- a/src/mihf/Jamfile
++++ b/src/mihf/Jamfile
+@@ -47,7 +47,6 @@ exe odtone-mihf
+ 	  meta_message.cpp
+ 	  discover_service.cpp
+ 	  ../../lib/odtone//odtone
+-	  /boost//program_options
+ 	;
+ 
+ install install
