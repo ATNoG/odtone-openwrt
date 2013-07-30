@@ -22,7 +22,7 @@ PKG_NAME:=$(PKG_NAME_SHORT)
 PKG_VERSION:=0.5
 
 PKG_SOURCE:=$(PKG_NAME_SHORT)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:= http://atnog.av.it.pt/odtone/
+PKG_SOURCE_URL:= http://atnog.av.it.pt/odtone/files/releases
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME_SHORT)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
