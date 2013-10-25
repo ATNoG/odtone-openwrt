@@ -19,7 +19,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME_SHORT:=odtone
 PKG_NAME:=$(PKG_NAME_SHORT)
-PKG_VERSION:=0.5
+PKG_VERSION:=0.6
 
 PKG_SOURCE:=$(PKG_NAME_SHORT)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:= http://atnog.av.it.pt/odtone/files/releases

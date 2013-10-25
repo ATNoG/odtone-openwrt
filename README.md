@@ -91,7 +91,7 @@ Go to your working directory and download the ODTONE extension.
 Add the ODTONE extensions to the `attitude_adjustment_12.09` directory.
 
     cd ~/odtonewrt/attitude_adjustment_12.09/package/
-    ln -s ~/odtonewrt/odtone-openwrt/odtone-0.5/
+    ln -s ~/odtonewrt/odtone-openwrt/odtone-0.6/
 
 Add the related package to your configuration
 
