@@ -1,11 +1,23 @@
 diff --git a/Jamroot b/Jamroot
-index 801c312..596a410 100644
+index debc5b2..71a8821 100644
 --- a/Jamroot
 +++ b/Jamroot
-@@ -40,28 +40,6 @@ project odtone
+@@ -25,8 +25,8 @@ import path ;
+ project odtone
+ 	: requirements
+ 		<include>inc
+-		<link>static
+-		<runtime-link>static
++		<link>shared
++		<runtime-link>shared
+ 		<toolset>gcc:<cxxflags>-std=c++0x
+ 		<toolset>gcc-android:<runtime-link>static
+ 		<toolset>msvc:<define>BOOST_ALL_NO_LIB
+@@ -41,27 +41,6 @@ project odtone
+ 
  path-constant odtone-root : . ;
  
- #
+-#
 -# Import the boost project
 -#
 -local boost-major = 1 ;
@@ -26,11 +38,9 @@ index 801c312..596a410 100644
 -	     "(--boost-root=/path/to/boost) or in the environment variable BOOST_ROOT" ;
 -}
 -use-project boost : $(boost-root) ;
--
--#
- # General utilities
+ 
  #
- rule explicit-alias ( main-target-name :
+ # General utilities
 diff --git a/app/sap_80211_linux/Jamfile b/app/sap_80211_linux/Jamfile
 index 0966abc..926df44 100644
 --- a/app/sap_80211_linux/Jamfile
@@ -41,12 +51,12 @@ index 0966abc..926df44 100644
  	  ../../lib/odtone//odtone
 -	  /boost//program_options
 -	: <link>static
-+	: <link>shared
++	: <link>shared <runtime-link>shared
  	;
  
  install install
 diff --git a/lib/external/libnl/Jamfile b/lib/external/libnl/Jamfile
-index 39d78b5..419b9ee 100644
+index 39d78b5..fd8d10e 100644
 --- a/lib/external/libnl/Jamfile
 +++ b/lib/external/libnl/Jamfile
 @@ -53,5 +53,5 @@ lib nlwrap
@@ -54,10 +64,10 @@ index 39d78b5..419b9ee 100644
  	:
  	:
 -	: <include>nlwrap
-+	: <include>nlwrap <link>static
++        : <include>nlwrap <link>static
  	;
 diff --git a/lib/odtone/Jamfile b/lib/odtone/Jamfile
-index e660037..880068a 100644
+index 3f37d29..55545e3 100644
 --- a/lib/odtone/Jamfile
 +++ b/lib/odtone/Jamfile
 @@ -51,9 +51,6 @@ lib odtone
@@ -67,9 +77,9 @@ index e660037..880068a 100644
 -	  /boost//system
 -	  /boost//thread
 -	  /boost//program_options
- 	  pthread
  	: <c++-template-depth>1024
  	  <define>BOOST_ENABLE_ASSERT_HANDLER
+ 	;
 diff --git a/src/mihf/Jamfile b/src/mihf/Jamfile
 index 71a2a77..38cca98 100644
 --- a/src/mihf/Jamfile
