@@ -83,6 +83,10 @@ You should see an OpenWrt welcome message.
 
 ##### Add ODTONE extensions
 
+Configure the PATH to use the toolchain gcc instead off the host gcc:
+
+      http://wiki.openwrt.org/doc/devel/crosscompile
+
 Go to your working directory and download the ODTONE extension.
 
     cd ~/odtonewrt/
