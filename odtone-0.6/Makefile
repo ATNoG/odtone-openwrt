@@ -91,4 +91,18 @@ define Package/odtone/install
 
 endef
 
+
+define Build/InstallDev
+
+	$(INSTALL_DIR) $(1)/usr/lib
+
+	$(CP) $(PKG_BUILD_DIR)/bin.v2/lib/odtone/gcc-$(ARCH)/release/inlining-on/optimization-space/libodtone.so $(1)/usr/lib/
+
+	$(INSTALL_DIR) $(1)/usr/include/odtone
+	$(CP) $(PKG_BUILD_DIR)/inc/odtone/* $(1)/usr/include/odtone/
+
+
+endef
+
+
 $(eval $(call BuildPackage,odtone))
