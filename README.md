@@ -232,3 +232,21 @@ be indicated for each link/system.
     threshold requires periodic polling of the attribute. This parameter sets the interval
     of that poll operation, in milliseconds.
     Usage: default_th_period = <time in ms>
+
+External contributors
+---------------------
+
+If you want to contribute code, please try to:
+
+1. Write good commit messages, explain what your patch does, and why it is
+   needed.
+2. Keep it simple: Any patch that changes a lot of code or is difficult to
+   understand should be discussed before you put in the effort.
+3. Make sure it works! :)
+
+Once you have tried the above, tou can create a GitHub pull request to notify
+us of your changes.
+
+Ordered by date of the first contribution:
+
+    Hugo Alves
