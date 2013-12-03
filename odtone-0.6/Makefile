@@ -21,9 +21,9 @@ PKG_NAME_SHORT:=odtone
 PKG_NAME:=$(PKG_NAME_SHORT)
 PKG_VERSION:=0.6
 
-PKG_SOURCE:=$(PKG_NAME_SHORT)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:= http://atnog.av.it.pt/odtone/files/releases
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME_SHORT)-$(PKG_VERSION)
+PKG_SOURCE:=v$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:= https://github.com/ATNoG/ODTONE/archive
+PKG_BUILD_DIR:=$(BUILD_DIR)/ODTONE-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -59,7 +59,7 @@ define Build/Compile
 		STRIP=$(GNU_TARGET_NAME)-strip \
 		OBJCOPY=$(GNU_TARGET_NAME)-objcopy \
 		OBJDUMP=$(GNU_TARGET_NAME)-objdump \
-		b2 src/mihf app/sap_80211_linux \
+		b2  src/mihf  app/sap_80211_linux app/sap_8023 app/link_sap_icmp app/link_sap \
 			$(filter -j%,$(PKG_JOBS)) \
 			toolset=gcc-$(ARCH) --build-type=minimal --layout=system optimization=space \
 			--disable-long-double link=shared runtime-link=shared inlining=on debug-symbols=off \
@@ -73,18 +73,36 @@ define Package/odtone/install
 	$(INSTALL_BIN) ./files/etc/init.d/odtone $(1)/etc/init.d
 
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_BUILD_DIR)/bin.v2/lib/external/libnl/gcc-mipsel/release/inlining-on/optimization-space/libnlwrap.so $(1)/usr/lib/
-	$(CP) $(PKG_BUILD_DIR)/bin.v2/lib/odtone/gcc-mipsel/release/inlining-on/optimization-space/libodtone.so $(1)/usr/lib/
-
-	$(INSTALL_DIR) $(1)/sbin/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_80211 $(1)/sbin/
+	$(CP) $(PKG_BUILD_DIR)/bin.v2/lib/external/libnl/gcc-$(ARCH)/release/inlining-on/optimization-space/libnlwrap.so $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/bin.v2/lib/odtone/gcc-$(ARCH)/release/inlining-on/optimization-space/libodtone.so $(1)/usr/lib/
 
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/odtone-mihf $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_80211 $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_8023 $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/link_sap_icmp $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/link_sap $(1)/usr/bin/
 
 	$(INSTALL_DIR) $(1)/etc/odtone
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/odtone.conf $(1)/etc/odtone/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_80211.conf $(1)/etc/odtone/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_8023.conf $(1)/etc/odtone/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/link_sap.conf $(1)/etc/odtone/
+
 endef
+
+
+define Build/InstallDev
+
+	$(INSTALL_DIR) $(1)/usr/lib
+
+	$(CP) $(PKG_BUILD_DIR)/bin.v2/lib/odtone/gcc-$(ARCH)/release/inlining-on/optimization-space/libodtone.so $(1)/usr/lib/
+
+	$(INSTALL_DIR) $(1)/usr/include/odtone
+	$(CP) $(PKG_BUILD_DIR)/inc/odtone/* $(1)/usr/include/odtone/
+
+
+endef
+
 
 $(eval $(call BuildPackage,odtone))
