@@ -59,7 +59,7 @@ define Build/Compile
 		STRIP=$(GNU_TARGET_NAME)-strip \
 		OBJCOPY=$(GNU_TARGET_NAME)-objcopy \
 		OBJDUMP=$(GNU_TARGET_NAME)-objdump \
-		b2  src/mihf  app/sap_80211_linux app/sap_8023 app/link_sap_icmp app/link_sap \
+		b2 src/mihf app/sap_80211_linux app/sap_8023 app/link_sap_icmp \
 			$(filter -j%,$(PKG_JOBS)) \
 			toolset=gcc-$(ARCH) --build-type=minimal --layout=system optimization=space \
 			--disable-long-double link=shared runtime-link=shared inlining=on debug-symbols=off \
@@ -81,13 +81,11 @@ define Package/odtone/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_80211 $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_8023 $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/link_sap_icmp $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/link_sap $(1)/usr/bin/
 
 	$(INSTALL_DIR) $(1)/etc/odtone
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/odtone.conf $(1)/etc/odtone/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_80211.conf $(1)/etc/odtone/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/sap_8023.conf $(1)/etc/odtone/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dist/link_sap.conf $(1)/etc/odtone/
 
 endef
 
