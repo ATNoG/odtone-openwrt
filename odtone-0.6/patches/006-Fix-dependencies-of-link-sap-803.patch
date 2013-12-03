@@ -1,0 +1,13 @@
+diff --git a/app/sap_8023/Jamfile b/app/sap_8023/Jamfile
+index cc66c81..889919e 100644
+--- a/app/sap_8023/Jamfile
++++ b/app/sap_8023/Jamfile
+@@ -21,9 +21,7 @@ exe sap_8023
+ 	  linux/if_8023.cpp
+ 	  linux/ethtool.cpp
+ 	  ../../lib/external/libnl//nlwrap
+-	  ../../lib/external/libnl//libnl
+ 	  ../../lib/odtone//odtone
+-	  /boost//program_options
+ 	: <link>static
+ 	;

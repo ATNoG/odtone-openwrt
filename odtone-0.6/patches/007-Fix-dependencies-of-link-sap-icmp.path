@@ -1,0 +1,12 @@
+diff --git a/app/link_sap_icmp/Jamfile b/app/link_sap_icmp/Jamfile
+index 9fef261..f8e012b 100644
+--- a/app/link_sap_icmp/Jamfile
++++ b/app/link_sap_icmp/Jamfile
+@@ -22,7 +22,6 @@ exe link_sap_icmp
+ 	: main.cpp
+ 	  link_sap.cpp
+ 	  ../../lib/odtone//odtone
+-	  /boost//program_options
+ 	;
+ 
+ install install
