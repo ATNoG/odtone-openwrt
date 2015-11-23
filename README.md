@@ -39,7 +39,10 @@ If you prefer to build your own image rather than using one of those given,
 follow the instructions below. It is strongly recommended that you build
 and load a vanilla OpenWrt tree before adding any ODTONE-related functionality.
 
-This release is based on the Attitude Adjustment OpenWrt release.
+This release is based on the Barrier Breaker OpenWrt release.
+If you want to use Attitude Adjustment branch, then checkout `12.09_branch` branch
+
+    git checkout 12.09_branch
 
 ##### Building OpenWrt
 
@@ -48,16 +51,18 @@ Install packages required by the OpenWrt buildsystem
     apt-get install build-essential binutils flex bison autoconf gettext texinfo sharutils \
                 subversion libncurses5-dev ncurses-term zlib1g-dev gawk
 
-Checkout and prepare Attitude Adjustment and the packages. For the rest of
+Checkout and prepare Barrier Breaker and the packages. For the rest of
 this section we assume that `~/odtonewrt` is your working directory. 
 
     cd ~/odtonewrt
-    svn co svn://svn.openwrt.org/openwrt/tags/attitude_adjustment_12.09/
-    cd attitude_adjustment_12.09
+
+Clone OpenWrt Barrier Breaker to `~/odtonewrt/openwrt`
+
+    cd openwrt
     ./scripts/feeds update -a
     ./scripts/feeds install -a
 
-Configure Attitude Adjustment (select target system) and the packages
+Configure Barrier Breaker (select target system) and the packages
 
     make menuconfig
 
@@ -66,12 +71,12 @@ installed. Check with:
 
     make prereq
 
-Finally build Attitude Adjustment
+Finally build Barrier Breaker
 
     make
 
 Load the image to your device. All images can be found under
-`~/odtonewrt/attitude_adjustment_12.09/bin/` After the device has rebooted make
+`~/odtonewrt/openwrt/bin/` After the device has rebooted make
 sure that you can login. Typically, this can be done as following:
 
     Connect to one of the "LAN" ports, not the Internet port (if there is any).
@@ -92,14 +97,14 @@ Go to your working directory and download the ODTONE extension.
     cd ~/odtonewrt/
     git clone https://github.com/ATNoG/odtone-openwrt.git
 
-Add the ODTONE extensions to the `attitude_adjustment_12.09` directory.
+Add the ODTONE extensions to the `openwrt` directory.
 
-    cd ~/odtonewrt/attitude_adjustment_12.09/package/
+    cd ~/odtonewrt/openwrt/package/
     ln -s ~/odtonewrt/odtone-openwrt/odtone-0.6/
 
 Add the related package to your configuration
 
-    cd ~/odtonewrt/attitude_adjustment_12.09
+    cd ~/odtonewrt/openwrt
     make menuconfig
 
 Choose the following:
