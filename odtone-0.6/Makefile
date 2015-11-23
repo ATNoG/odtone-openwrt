@@ -63,7 +63,8 @@ define Build/Compile
 			$(filter -j%,$(PKG_JOBS)) \
 			toolset=gcc-$(ARCH) --build-type=minimal --layout=system optimization=space \
 			--disable-long-double link=shared runtime-link=shared inlining=on debug-symbols=off \
-			$(CONFIGURE_ARGS) linkflags="-lpthread -lgcc_eh -lboost_program_options -lboost_system -lboost_thread -lnl -lnl-genl -lnl-route" \
+			$(CONFIGURE_ARGS) linkflags="-lpthread -lgcc_eh -lboost_program_options -lboost_system -lboost_thread -lnl-3 -lnl-genl-3 -lnl-route-3" \
+			include=$(STAGING_DIR)/usr/include/libnl3 \
 			release \
 	)
 endef
