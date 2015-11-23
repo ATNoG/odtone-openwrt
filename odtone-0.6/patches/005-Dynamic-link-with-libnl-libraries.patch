@@ -101,7 +101,7 @@ index ad98ad0..fb817b4 100644
  
 +#include <linux/types.h>
  #include <netlink/socket.h>
-+#include <libnl-tiny/linux/netlink.h>
++#include <libnl/linux/netlink.h>
  #include "nl_socket.hpp"
  
  namespace nlwrap {
